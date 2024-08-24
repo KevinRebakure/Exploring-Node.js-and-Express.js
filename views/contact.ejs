@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kevin Rebakure | Contact</title>
+    <link rel="stylesheet" href="output.css" />
+  </head>
+  <body class="bg-gray-900 text-white">
+    <div class="mx-auto w-[800px]">
+      <%- include('partials/header.ejs') %>
+
+      <main>
+        <section class="p-10">
+          <h1 class="p-10 text-center text-4xl font-semibold">Reach me here</h1>
+          <div class="mx-auto space-y-5 rounded-lg border border-white p-5">
+            <% for (let i = 0; i < data.contact.addresses.length; i++) { %>
+              <%- `<p class="flex items-center gap-x-3 p-2">` %>
+                <%- ` <img class="size-[30px]" src="${data.contact.addresses[i].icon}" alt="" />` %>
+                <%- ` ${data.contact.addresses[i].label}: ${data.contact.addresses[i].username}` %>
+              <%- `</p>` %>
+              <% } %>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

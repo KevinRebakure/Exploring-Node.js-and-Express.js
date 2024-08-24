@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kevin Rebakure | About</title>
+    <link rel="stylesheet" href="output.css" />
+  </head>
+  <body class="bg-gray-900 text-white">
+    <div class="mx-auto w-[800px]">
+      <%- include('partials/header.ejs') %>
+
+      <main>
+          <% for(let i = 0; i < data.about.sections.length; i++) { %>
+            <%- `<section class="p-5">` %>
+              <%- `<h1 class="pb-10 text-4xl font-semibold">${data.about.sections[i].title}</h1>`%>
+              <%- `<p>${data.about.sections[i].paragraph}</p>`%>
+            </section>
+            <%- `</section>` %>
+            <% } %>
+      </main>
+    </div>
+  </body>
+</html>
