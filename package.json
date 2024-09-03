@@ -1,24 +1,28 @@
 {
-  "name": "tailwindcss-javascript-setup",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tailwind": "npx tailwindcss -i ./public/index.css -o ./public/output.css --watch"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.6",
-    "tailwindcss": "^3.4.10"
-  },
-  "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "nodemon": "^3.1.4",
-    "postcss": "^8.4.41"
-  }
+    "name": "draft",
+    "type": "commonjs",
+    "version": "1.0.0",
+    "main": "app.js",
+    "source": "./index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "sass": "sass --watch ./input.scss ./index.css",
+        "start": "parcel",
+        "build": "parcel build"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "@eslint/js": "^9.8.0",
+        "eslint": "^9.8.0",
+        "globals": "^15.9.0",
+        "parcel": "^2.12.0"
+    },
+    "dependencies": {
+        "express": "^4.19.2",
+        "lodash": "^4.17.21",
+        "nodemon": "^3.1.4"
+    }
 }
