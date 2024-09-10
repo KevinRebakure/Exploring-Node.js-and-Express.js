@@ -22,6 +22,20 @@ app.post('/output', (req, res) => {
     })
 })
 
+app.put('/input', (req, res) => {
+    fs.appendFile(
+        './input.txt',
+        '\n' + JSON.stringify(req.body.user).replace('\"', ''),
+        (err) => {
+            if (err) {
+                res.send(err.message)
+            }
+        }
+    )
+    res.send('successful updated✅')
+})
+
+
 const server = http.createServer(app)
 const PORT = 3000
 

@@ -1,1 +1,1 @@
-{"group":"team-orange"}
+{"fname":"Kevin","lname":"Rebakure","age":12,"city":"Kigali"}
