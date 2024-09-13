@@ -8,6 +8,27 @@
     2. **CREATE**
     3. **UPDATE**
     4. **DELETE**
+-   You recieve a message after each successfull request
+
+## Error handling
+
+### READ
+
+If there are no items, you will recieve `There are no items` message
+
+### CREATE
+
+-   If you try to create an item with an ID which is already there. You'll be warned `That id already exist!❌`
+-   If you don't provide the id and the title you will be warned that `You have to provide the Id and the title!`
+
+### UPDATE
+
+-   If you try to update an item that doesn't exist. It will create it for you and give you a message that the `Item didn't exist. It was created✅`
+-   If you update the item with no data, it will add `no data` by default
+
+### DELETE
+
+-   When you try to delete an item that doesn't exist, you will get a message that `The item doesn't exist❌`
 
 ## How to work with the app
 

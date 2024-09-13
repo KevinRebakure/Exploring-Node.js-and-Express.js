@@ -17,7 +17,11 @@ app.get(PATH, (req, res) => {
     fs.readFile(FILE_PATH, { encoding: 'utf-8' }, (err, data) => {
         if (err) return res.status(500).send(err.message)
         const response = getItems(data)
-        res.status(200).send(response)
+        if (response.length === 0) {
+            res.send('There are no items')
+        } else {
+            res.status(200).send(response)
+        }
     })
 })
 
