@@ -4,10 +4,10 @@
 -   Created a util function for getting items as a module
 -   I added comments to clarify what certain blocks of code do. The comments show the title of the sub-exercise.
 -   Sub-exercises are clarified with the comments as well
-    1. **1. READ**
-    2. **2. CREATE**
-    3. **3. UPDATE**
-    4. **4. DELETE**
+    1. **READ**
+    2. **CREATE**
+    3. **UPDATE**
+    4. **DELETE**
 
 ## How to work with the app
 
