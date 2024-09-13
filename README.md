@@ -1,4 +1,7 @@
-# Solution 1
+# Solution 
+
+> [!NOTE]
+> There is no error handling in this exercise. It was applied in the 3rd exercise
 
 -   Values (file paths, routes and messages) are hard coded just for the sake of exercises.
 -   Functions for performing certain operations like reading from and writing to the files are repetitive. I didn't spend much time making sure that they can be re-used. Again for the sake of not spending way too much time on it.
