@@ -1,3 +1,5 @@
+// create the app and add imports
+
 const http = require('http')
 const fs = require('fs')
 const express = require('express')
@@ -5,7 +7,7 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 
-// read the file
+// 1. READ with GET request
 
 app.get('/input', (req, res) => {
     fs.readFile('./input.txt', { encoding: 'utf-8' }, (err, data) => {
@@ -17,7 +19,7 @@ app.get('/input', (req, res) => {
     })
 })
 
-// create the file
+// 2. CREATE with POST request
 
 app.post('/output', (req, res) => {
     fs.writeFile('./output.txt', JSON.stringify(req.body), (err) => {
@@ -26,7 +28,7 @@ app.post('/output', (req, res) => {
     })
 })
 
-// update the file
+// 3. UPDATE with PUT request
 
 app.put('/input', (req, res) => {
     fs.appendFileSync(
@@ -39,7 +41,7 @@ app.put('/input', (req, res) => {
     res.send('successful updated✅')
 })
 
-// delete something from the file
+// 4. DELETE with DELETE request 
 
 app.delete('/input', (req, res) => {
     fs.readFile('./input.txt', { encoding: 'utf-8' }, (err, data) => {
@@ -56,6 +58,8 @@ app.delete('/input', (req, res) => {
         }
     })
 })
+
+// create and start the server
 
 const server = http.createServer(app)
 const PORT = 3000
