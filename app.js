@@ -24,22 +24,28 @@ app.get(PATH, (req, res) => {
 // 2. CREATE
 
 app.post(PATH, (req, res) => {
-    fs.readFile(FILE_PATH, { encoding: 'utf-8' }, (err, data) => {
-        if (err) return res.status(500).send(err.message)
-        const response = JSON.parse(data)
-        const ids = response.items.map((item) => item.id)
-        if (ids.includes(req.body.id)) {
-            res.send('That id already exist!❌')
-        } else {
-            // console.log(ids)
-            response.items.push(req.body)
+    if (req.body.id && req.body.title) {
+        fs.readFile(FILE_PATH, { encoding: 'utf-8' }, (err, data) => {
+            if (err) return res.status(500).send(err.message)
 
-            fs.writeFile(FILE_PATH, `\n ${JSON.stringify(response)}`, (err) => {
-                if (err) res.status(500).send(err.message)
-                res.send('Item added✅')
-            })
-        }
-    })
+            const response = JSON.parse(data)
+            const ids = response.items.map((item) => item.id)
+            if (ids.includes(req.body.id)) {
+                res.send('That id already exist!❌')
+            } else {
+                fs.writeFile(
+                    FILE_PATH,
+                    `\n ${JSON.stringify(response)}`,
+                    (err) => {
+                        if (err) res.status(500).send(err.message)
+                        res.send('Item added✅')
+                    }
+                )
+            }
+        })
+    } else {
+        res.send('You have to provide the Id and the title!')
+    }
 })
 
 // 3. UPDATE
