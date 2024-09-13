@@ -1,1 +1,0 @@
-{"fname":"Kevin","lname":"Rebakure","age":12,"city":"Kigali"}

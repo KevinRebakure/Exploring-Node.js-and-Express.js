@@ -1,4 +1,5 @@
 // create the app and add imports
+const getItems = require('./utils/getItems')
 
 const http = require('http')
 const fs = require('fs')
@@ -7,55 +8,76 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 
-// 1. READ with GET request
+const PATH = '/data'
+const FILE_PATH = './data.json'
 
-app.get('/input', (req, res) => {
-    fs.readFile('./input.txt', { encoding: 'utf-8' }, (err, data) => {
+// 1. READ
+
+app.get(PATH, (req, res) => {
+    fs.readFile(FILE_PATH, { encoding: 'utf-8' }, (err, data) => {
         if (err) return res.status(500).send(err.message)
-        res.send({
-            status: 200,
-            data,
+        const response = getItems(data)
+        res.status(200).send(response)
+    })
+})
+
+// 2. CREATE
+
+app.post(PATH, (req, res) => {
+    fs.readFile(FILE_PATH, { encoding: 'utf-8' }, (err, data) => {
+        if (err) return res.status(500).send(err.message)
+        const response = JSON.parse(data)
+        response.items.push(req.body)
+
+        fs.writeFile(FILE_PATH, `\n ${JSON.stringify(response)}`, (err) => {
+            if (err) res.status(500).send(err.message)
+            res.send('Request received')
         })
     })
 })
 
-// 2. CREATE with POST request
+// 3. UPDATE
 
-app.post('/output', (req, res) => {
-    fs.writeFile('./output.txt', JSON.stringify(req.body), (err) => {
-        if (err) res.status(500).send(err.message)
-        res.status(201).send('Updated successfully!👍')
+app.put(`${PATH}/:id`, (req, res) => {
+    const id = req.params.id
+
+    fs.readFile(FILE_PATH, { encoding: 'utf-8' }, (err, data) => {
+        if (err) return res.status(500).send(err.message)
+        const response = JSON.parse(data)
+        const filteredArray = response.items.filter(
+            (item) => item.id !== Number(id)
+        )
+        filteredArray.push({ id: Number(id), title: req.body.title })
+        filteredArray.sort((a, b) => a.id - b.id)
+        response.items = filteredArray
+
+        fs.writeFile(FILE_PATH, `\n ${JSON.stringify(response)}`, (err) => {
+            if (err) res.status(500).send(err.message)
+            res.send('Request received')
+        })
+        res.send(`put request received at ${id}`)
     })
 })
 
-// 3. UPDATE with PUT request
+// 4. DELETE
 
-app.put('/input', (req, res) => {
-    fs.appendFileSync(
-        './input.txt',
-        `\n ${JSON.stringify(req.body.message).replaceAll('"', '')}`,
-        (err) => {
-            if (err) res.status(201).send(err.message)
-        }
-    )
-    res.send('successful updated✅')
-})
+app.delete(`${PATH}/:id`, (req, res) => {
+    const id = req.params.id
+    fs.readFile(FILE_PATH, { encoding: 'utf-8' }, (err, data) => {
+        if (err) return res.status(500).send(err.message)
+        const response = JSON.parse(data)
+        const filteredArray = response.items.filter(
+            (item) => item.id !== Number(id)
+        )
 
-// 4. DELETE with DELETE request 
+        filteredArray.sort((a, b) => a.id - b.id)
+        response.items = filteredArray
 
-app.delete('/input', (req, res) => {
-    fs.readFile('./input.txt', { encoding: 'utf-8' }, (err, data) => {
-        if (err) res.status(500).send(err)
-        if (data.includes(req.body.message)) {
-            fs.writeFile(
-                './input.txt',
-                data.replace(req.body.message, '').replace(/^\s*[\r\n]/gm, ''),
-                (err) => console.log(err)
-            )
-            res.status(202).send('Delete request received successfully☑️')
-        } else {
-            res.send(`No match found! Available names are: \n ${data}`)
-        }
+        fs.writeFile(FILE_PATH, `\n ${JSON.stringify(response)}`, (err) => {
+            if (err) res.status(500).send(err.message)
+            res.send('Request received')
+        })
+        res.send(`Item deleted✅`)
     })
 })
 
