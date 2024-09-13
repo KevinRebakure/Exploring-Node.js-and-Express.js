@@ -90,7 +90,7 @@ app.delete(`${PATH}/:id`, (req, res) => {
         if (err) return res.status(500).send(err.message)
         const response = JSON.parse(data)
         const ids = response.items.map((item) => item.id)
-        if (ids.includes(id)) {
+        if (ids.includes(Number(id))) {
             const filteredArray = response.items.filter(
                 (item) => item.id !== Number(id)
             )
