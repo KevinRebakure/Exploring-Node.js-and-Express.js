@@ -1,5 +1,8 @@
 # Solution 3
 
+> [!NOTE]
+> Added error handling
+
 -   I tried to not hardcode the values
 -   Created a util function for getting items as a module
 -   I added comments to clarify what certain blocks of code do. The comments show the title of the sub-exercise.
